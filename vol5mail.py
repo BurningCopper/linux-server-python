@@ -6,7 +6,7 @@ import datetime
 
 input_folder = "/home/deretzlaff-ou@ad.wisc.edu"
 drive_mount = "run"
-server = smtplib.SMTP('palazzo.psychiatry.wisc.edu')
+email_server = 'palazzo.psychiatry.wisc.edu'
 email_from = "deretzlaff@wisc.edu"
 email_to = "deretzlaff@wisc.edu"
 email_subject = "Subject: Vol5 Storage Assessment for " + datetime.datetime.now().strftime("%m-%d-%Y") + " \n"
@@ -44,9 +44,6 @@ def grep_lines(s, g):
     for i in l:
         if i.find(g) != -1:
             s = s + i + "\n"
-        else:
-            l.remove(i)
-    l = s.split("\n")
     return s
 
 #Take the input string (s), convert it to a list (l), and output an html formatted table (h)
@@ -61,13 +58,12 @@ def format_html_table(s):
     return h
 
 
-
 # Begin the main program
 ls_output = subprocess.run(["/usr/bin/ls", "--format", "single-column"], cwd=input_folder, stdout=subprocess.PIPE)
 
 directories = clean_output(ls_output)
 
-storage_report = "Size\tFolder\n"
+storage_report = "Folder size&nbsp&nbsp&nbsp\tFolder\n"
 
 for directory in directories:
     storage_item = disk_usage(directory)
@@ -81,4 +77,5 @@ storage_report = format_html_table(storage_report) + drive_usage_totals
 
 email_message = email_subject + email_body_formatting[0] + storage_report + email_body_formatting[1]
 
+server = smtplib.SMTP(email_server)
 server.sendmail(email_from, email_to, email_message)

@@ -1,33 +1,24 @@
 #!/usr/bin/env python3
-#Script to generate a daily email on the status of Vol5 
+#Script to generate a daily email on the status of Tononi storage
 import smtplib
 import subprocess
 import datetime
 
-input_folder = "/home/deretzlaff-ou@ad.wisc.edu"
-drive_mount = "run"
-server = smtplib.SMTP('palazzo.psychiatry.wisc.edu')
+input_folder = ["/Volumes/scratch", "/Volumes/npx_nfs"]
+drive_mount = ["scratch", "npx_nfs"]
+email_server = 'palazzo.psychiatry.wisc.edu'
 email_from = "deretzlaff@wisc.edu"
-email_to = "deretzlaff@wisc.edu, gfindley@wisc.edu"
+email_to = "gfindley@wisc.edu, deretzlaff@wisc.edu"
 email_subject = "Subject: Tononi Storage Assessment for " + datetime.datetime.now().strftime("%m-%d-%Y") + " \n"
 email_body_formatting = ["Content-type:text/html \n<html><font face=\"Courier New, Courier, monospace\">", "</font></html>"]
 
-
-# Take the byte type output of subprocess.run (b) and output a list of clean output (l)
-def clean_output(b):
-    b = b.stdout
-    s = b.decode('utf-8')
-    s = s.rstrip("\n")
-    l = s.split('\n')
-    return l
-
 # Take the input directory (dir_in) and output the total disk usage for the directory as a string (dir_out)
 def disk_usage(dir_in):
-    du_subprocess = subprocess.run(["/usr/bin/du", "--summarize", "--human-readable", dir_in], cwd=input_folder, stdout=subprocess.PIPE)
-    du_subprocess = du_subprocess.stdout
-    dir_out = du_subprocess.decode('utf-8')
-    dir_out = dir_out.rstrip("\n")
-    return dir_out
+        du_subprocess = subprocess.run(["/usr/bin/du", "--summarize", "--human-readable", dir_in], stdout=subprocess.PIPE)
+        du_subprocess = du_subprocess.stdout
+        dir_out = du_subprocess.decode('utf-8')
+        dir_out = dir_out.rstrip("\n")
+        return dir_out
 
 # Output a string (s) that contains the formatted output of df
 def df_output():
@@ -44,46 +35,52 @@ def grep_lines(s, g):
     for i in l:
         if i.find(g) != -1:
             s = s + i + "\n"
-        # else:
-        #     l.remove(i)
-    # l = s.split("\n")
     return s
 
 # Take the input string (s), convert it to a list (l), and output an html formatted table (h)
 def format_html_table(s):
     l = s.split('\n')
-    h = "<p><table>\n"
+    h = "<p><table>\n<tr><td>"
     for i in l:
+        i = i + "\n<tr><td>"
         i = i.replace('\t', '</td><td>')
         i = i.replace('\n', '</td></tr>')
-        h = h + "<tr><td>" + i + "\n"
+        h = h + i + "\n"
     h = h + "</table></p>\n"
     return h
 
-# Take input list of input folders (s)
+# Take an input string (s) and output the individual disk usage of its contents (o)
+def total_disk_usage(s):
+    ls_subprocess = subprocess.run(["/usr/bin/ls", "--format", "single-column", s], stdout=subprocess.PIPE)
+    ls_subprocess = ls_subprocess.stdout
+    p = ls_subprocess.decode('utf-8')
+    p = p.rstrip("\n")
+    l = p.split("\n")
+    o = s + "\t\n"
+    for i in l:
+        o = o + (disk_usage(s + "/" + i)) + "\n" 
+    return o
 
-# Begin the main program
-# storage_report_body = create_report_body(input_folder, drive_mount)
+# Begin main program
+storage_report = ""
+for i in input_folder:
+    storage_report = storage_report + total_disk_usage(i) 
 
+drive_usage_totals = "<pre>" + grep_lines(df_output(), "Size") 
 
+for i in drive_mount:
+    drive_usage_totals = drive_usage_totals + grep_lines(df_output(), i) 
 
+drive_usage_totals = drive_usage_totals + "</pre>" 
 
-ls_output = subprocess.run(["/usr/bin/ls", "--format", "single-column"], cwd=input_folder, stdout=subprocess.PIPE)
-
-directories = clean_output(ls_output)
-
-storage_report = "Size\tFolder\n"
-
-for directory in directories:
-    storage_item = disk_usage(directory)
-    storage_report = storage_report + storage_item + "\n"
-
-drive_usage_totals = ""
-
-drive_usage_totals = drive_usage_totals + "<pre>" + grep_lines(df_output(), "Size") + grep_lines(df_output(), drive_mount) + "</pre>"
+#print(storage_report)
+#print(drive_usage_totals)
 
 storage_report = format_html_table(storage_report) + drive_usage_totals
 
 email_message = email_subject + email_body_formatting[0] + storage_report + email_body_formatting[1]
+
 print(email_message)
-# server.sendmail(email_from, email_to, email_message)
+
+server = smtplib.SMTP(email_server)
+server.sendmail(email_from, email_to, email_message)
