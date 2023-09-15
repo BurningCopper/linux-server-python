@@ -77,7 +77,5 @@ storage_report = format_html_table(storage_report) + drive_usage_totals
 
 email_message = email_subject + email_body_formatting[0] + storage_report + email_body_formatting[1]
 
-print(email_message)
-
 server = smtplib.SMTP(email_server)
 server.sendmail(email_from, email_to, email_message)

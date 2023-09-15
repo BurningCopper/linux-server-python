@@ -8,17 +8,17 @@ input_folder = ["/Volumes/neuropixel_archive", "/Volumes/paxilline", "/Volumes/o
 drive_mount = ["neuropixel_archive", "paxilline", "opto_loc", "mouse_ncc", "em_storage", "jazz", "non_nccam", "nccam", "vision"]
 email_server = 'palazzo.psychiatry.wisc.edu'
 email_from = "deretzlaff@wisc.edu"
-email_to = ["smith1@wisc.edu, deretzlaff@wisc.edu"]
+email_to = ["smith1@wisc.edu", "deretzlaff@wisc.edu"]
 email_subject = "Subject: Tononi Storage Assessment for " + datetime.datetime.now().strftime("%m-%d-%Y") + " \n"
 email_body_formatting = ["Content-type:text/html \n<html><font face=\"Courier New, Courier, monospace\">", "</font></html>"]
 
 # Take the input directory (dir_in) and output the total disk usage for the directory as a string (dir_out)
-def disk_usage(dir_in):
-        du_subprocess = subprocess.run(["/usr/bin/du", "--summarize", "--human-readable", dir_in], stdout=subprocess.PIPE)
-        du_subprocess = du_subprocess.stdout
-        dir_out = du_subprocess.decode('utf-8')
-        dir_out = dir_out.rstrip("\n")
-        return dir_out
+# def disk_usage(dir_in):
+#         du_subprocess = subprocess.run(["/usr/bin/du", "--summarize", "--human-readable", dir_in], stdout=subprocess.PIPE)
+#         du_subprocess = du_subprocess.stdout
+#         dir_out = du_subprocess.decode('utf-8')
+#         dir_out = dir_out.rstrip("\n")
+#         return dir_out
 
 # Output a string (s) that contains the formatted output of df
 def df_output():
