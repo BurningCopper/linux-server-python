@@ -8,7 +8,7 @@ input_folder = ["/Volumes/scratch", "/Volumes/npx_nfs"]
 drive_mount = ["scratch", "npx_nfs"]
 email_server = 'palazzo.psychiatry.wisc.edu'
 email_from = "deretzlaff@wisc.edu"
-email_to = ["gfindlay@wisc.edu", "deretzlaff@wisc.edu"]
+email_to = "smith1@wisc.edu, deretzlaff@wisc.edu"
 email_subject = "Subject: Tononi Storage Assessment for " + datetime.datetime.now().strftime("%m-%d-%Y") + " \n"
 email_body_formatting = ["Content-type:text/html \n<html><font face=\"Courier New, Courier, monospace\">", "</font></html>"]
 
