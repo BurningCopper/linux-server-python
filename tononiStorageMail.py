@@ -73,9 +73,6 @@ for i in drive_mount:
 
 drive_usage_totals = drive_usage_totals + "</pre>" 
 
-#print(storage_report)
-#print(drive_usage_totals)
-
 storage_report = format_html_table(storage_report) + drive_usage_totals
 
 email_message = email_subject + email_body_formatting[0] + storage_report + email_body_formatting[1]
