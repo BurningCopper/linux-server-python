@@ -10,8 +10,7 @@ def performance_test(s):
     d = d.stdout
     s = d.decode('utf-8')
     l = s.split("\n")
-    s = l[-1]
-    print(s)
+    print(l)
 
 # startTime = time.time()
 performance_test(destinationPath)
