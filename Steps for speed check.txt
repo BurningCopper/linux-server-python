@@ -1,0 +1,2 @@
+dd if=/dev/zero of=<destination path> bs=10G count=1
+rm <destination path>
