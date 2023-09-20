@@ -7,7 +7,7 @@ destinationPath = "/Volumes/restricted/Test"
 
 def performance_test(s):
     d = subprocess.run(["/usr/bin/dd", "if=/dev/zero", "of=" + s + "/test.img", "bs=" + baseSize, "count=1"], stderr=subprocess.PIPE)
-    d = d.stdout
+    d = d.stderr
     print(d)
     # s = d.decode('utf-8')
     # l = s.split("\n")
