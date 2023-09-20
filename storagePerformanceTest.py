@@ -6,8 +6,9 @@ baseSize = "10G"
 destinationPath = "/Volumes/restricted/Test"
 
 def performance_test(s):
-    dd_subprocess = subprocess.run(["/usr/bin/dd", "if=/dev/zero", "of=" + s + "/test.img", "bs=10G", "count=1"], stdout=subprocess.PIPE)
-    print(dd_subprocess) 
+    d = subprocess.run(["/usr/bin/dd", "if=/dev/zero", "of=" + s + "/test.img", "bs=10G", "count=1"], stdout=subprocess.PIPE)
+    d = d.stdout
+    print(d)
 
 # startTime = time.time()
 performance_test(destinationPath)
