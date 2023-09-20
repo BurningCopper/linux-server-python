@@ -2,11 +2,11 @@
 #
 import subprocess
 
-baseSize = "10G"
+baseSize = "1G"
 destinationPath = "/Volumes/restricted/Test"
 
 def performance_test(s):
-    d = subprocess.run(["/usr/bin/dd", "if=/dev/zero", "of=" + s + "/test.img", "bs=10G", "count=1"], stdout=subprocess.PIPE)
+    d = subprocess.run(["/usr/bin/dd", "if=/dev/zero", "of=" + s + "/test.img", "bs=" + baseSize, "count=1"], stdout=subprocess.STDOUT)
     d = d.stdout
     print(d)
     s = d.decode('utf-8')
