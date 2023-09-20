@@ -3,7 +3,7 @@
 import subprocess
 
 baseSize = "10G"
-destinationPath = "/Volumes/restricted"
+destinationPath = "/Volumes/restricted/Test"
 
 def performance_test(s):
     dd_subprocess = subprocess.run(["/usr/bin/dd", "if=/dev/zero", "of=" + s + "/test.img", "bs=10G", "count=1"], stdout=subprocess.PIPE)
