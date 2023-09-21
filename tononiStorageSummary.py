@@ -4,11 +4,12 @@ import smtplib
 import subprocess
 import datetime
 
-input_folder = ["/Volumes/neuropixel_archive", "/Volumes/paxilline", "/Volumes/opto_loc", "/Volumes/mouse_ncc", "/Volumes/em_storage", "/Volumes/jazz", "/Volumes/non_nccam", "/Volumes/nccam", "/Volumes/vision", "/Volumes/epilepsy", "/Volumes/nccam_scratch", "/Volumes/slap_mi", "/Volumes/uwmf_orig_rec", "/Volumes/white_elephant"]
+# input_folder = ["/Volumes/neuropixel_archive", "/Volumes/paxilline", "/Volumes/opto_loc", "/Volumes/mouse_ncc", "/Volumes/em_storage", "/Volumes/jazz", "/Volumes/non_nccam", "/Volumes/nccam", "/Volumes/vision", "/Volumes/epilepsy", "/Volumes/nccam_scratch", "/Volumes/slap_mi", "/Volumes/uwmf_orig_rec", "/Volumes/white_elephant"]
 drive_mount = ["neuropixel_archive", "paxilline", "opto_loc", "mouse_ncc", "em_storage", "jazz", "non_nccam", "nccam", "vision"]
 email_server = 'palazzo.psychiatry.wisc.edu'
 email_from = "deretzlaff@wisc.edu"
-email_to = ["smith1@wisc.edu", "deretzlaff@wisc.edu"]
+# email_to = ["smith1@wisc.edu", "deretzlaff@wisc.edu"]
+email_to = ["deretzlaff@wisc.edu"]
 email_subject = "Subject: Tononi Storage Assessment for " + datetime.datetime.now().strftime("%m-%d-%Y") + " \n"
 email_body_formatting = ["Content-type:text/html \n<html><font face=\"Courier New, Courier, monospace\">", "</font></html>"]
 
