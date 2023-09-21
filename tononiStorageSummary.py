@@ -28,18 +28,6 @@ def grep_lines(s, g):
             s = s + i + "\n"
     return s
 
-# Take an input string (s) and output the individual disk usage of its contents (o)
-def total_disk_usage(s):
-    ls_subprocess = subprocess.run(["/usr/bin/ls", "--format", "single-column", s], stdout=subprocess.PIPE)
-    ls_subprocess = ls_subprocess.stdout
-    p = ls_subprocess.decode('utf-8')
-    p = p.rstrip("\n")
-    l = p.split("\n")
-    o = s + "\t\n"
-    for i in l:
-        o = o + (disk_usage(s + "/" + i)) + "\n" 
-    return o
-
 drive_usage_totals = "<pre>" + grep_lines(df_output(), "Size") 
 
 for i in drive_mount:
