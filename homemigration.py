@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 
-## App that creates AD authenticating folders from 
-## current LDAP folders held in the mri-users
-## nfs share.  The app reads a csv file and uses the
-## data to map LDAP userids to the new AD userids,
-## creates a new home folder based on the users netid,
-## moves the contents of the users LDAP users folder,
-## and sets the correct permissions for the folder. 
+## App that logs user into a VM to authenticate their
+## user priveledges under LDAP, then copies their old
+## home folder files into a folder (backup_home) inside
+## their AD account
 
 import subprocess
 import os
@@ -37,4 +34,15 @@ if path_exists(download_location):
 else:
     make_directory(download_location)
 
-subprocess.call(["rsync", "-r", "--progress", user_name + "@" + server_ip + ":~/", download_location])
+subprocess.call(["rsync",
+                "--recursive",
+                "--progress",
+                "--update",
+                "--append-verify",
+                "--links",
+                "--sparse",
+                "--times",
+                "--checksum",
+                "--compress",
+                user_name + "@" + server_ip + ":~/", download_location])
+
