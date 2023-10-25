@@ -54,20 +54,17 @@ def list_conda_env():
 # Import a string (s) with the name of a conda env and export a yml file
 def export_conda_env(s):
     file_name = folder_location + '/' + s +'.yml'
-    if os.path.exists(file_name):
-        print("File " + file_name + " already exists!")
-    else:
-        with open(file_name, "w") as file_object:
-            b = subprocess.run(['conda',
-                                'env',
-                                'export',
-                                '--name',
-                                s],
-                                stdout=subprocess.PIPE)
-            b = b.stdout
-            f = b.decode('utf-8')
-            f = f.rstrip('\n')
-            file_object.write(f)
+    with open(file_name, "w") as file_object:
+        b = subprocess.run(['conda',
+                            'env',
+                            'export',
+                            '--name',
+                            s],
+                            stdout=subprocess.PIPE)
+        b = b.stdout
+        f = b.decode('utf-8')
+        f = f.rstrip('\n')
+        file_object.write(f)
 
 #Begin main program
 if path_exists(folder_location):
