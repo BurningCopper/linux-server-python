@@ -4,7 +4,7 @@ import smtplib
 import subprocess
 import datetime
 
-drive_mount = ["neuropixel_archive", "paxilline", "opto_loc", "mouse_ncc", "em_storage", "jazz", "non_nccam", "nccam", "vision"]
+drive_mount = ["neuropixel_archive", "paxilline", "opto_loc", "mouse_ncc", "em_storage", "jazz", "non_nccam", "nccam", "vision", "uwmf_orig_rec", "epilepsy"]
 email_server = 'palazzo.psychiatry.wisc.edu'
 email_from = "deretzlaff@wisc.edu"
 email_to = ["smith1@wisc.edu", "deretzlaff@wisc.edu"]
