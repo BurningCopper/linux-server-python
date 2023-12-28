@@ -49,6 +49,7 @@ def remote_snapshots(h, u, v):
 last_snapshot_byte = remote_snapshots(host_name, user_name, volume_name)
 last_snapshot_list = clean_output(last_snapshot_byte)
 last_snapshot_list = grep_lines(last_snapshot_list, "daily")
+last_snapshot = last_snapshot_list[-1]
 
-print(last_snapshot_list)
+print(last_snapshot)
 
