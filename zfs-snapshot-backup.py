@@ -63,16 +63,17 @@ old_snapshot_list = clean_output(old_snapshot_byte)
 old_snapshot_list = grep_lines(old_snapshot_list, "daily")
 old_snapshot = old_snapshot_list[-1]
 
-if old_snapshot > latest_snapshot:
-    print("Latest snapshot is newer!")
+if old_snapshot < latest_snapshot:
+    email_body_byte = subprocess.run(["ssh", host_name,
+                                    "zfs", "send",
+                                    "-i", old_snapshot, latest_snapshot, "|",
+                                    "zfs", "recv", volume_name],
+                                    stdout=subprocess.PIPE)
+    email_body_list = clean_output(email_body_byte)
+    email_body = ""
+    for i in email_body_list:
+        email_body = i + "\n"
 else:
-    print("Snapshot is not larger")
+    email_body = "No backup performed because the latest snapshot on the target volume was not newer than the backup snapshot."
 
-# email_body_byte = subprocess.run(["ssh", host_name,
-#                                   "zfs", "send",
-#                                   "-i", old_snapshot, latest_snapshot, "|",
-#                                   "zfs", "recv", volume_name],
-#                                   stdout=subprocess.PIPE)
-# email_body_list = clean_output(email_body_byte)
-
-# for item in 
+print(email_body)
