@@ -1,0 +1,19 @@
+Steps to perform a check:
+1. Grab a list of snapshots on remote system
+    ssh <hostname> zfs list -t snapshot -o name <volume_name>
+2. Reduce list to the most recent daily snapshot
+    use grep module to reduce list to only 'daily' snapshots
+    use the last item on the list as the last snapshot name
+3. Grab list of snapshots on local filesystem
+    zfs list -t snapshot -o name <volume_name>
+4. Reduce list to the most recent daily snapshot
+    use grep module to reduce list to only 'daily' snapshots
+    use the last item on the list as the current snapshot name
+5. verify that current snapshot is older than last snapshot
+    simple if statement with > sign?
+6. Transfer the snapshot
+    ssh <hostname> zfs send -i <old_snapshot> <last_snapshot> | zfs recv <volume_name>
+7. Email a report to me
+
+Setup:
+1. Have zfs permissions set for the user name on both
