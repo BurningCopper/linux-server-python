@@ -45,7 +45,7 @@ def remote_snapshots(h, u, v):
                     stdout=subprocess.PIPE)
     return b
 
-print remote_snapshots(host_name, user_name, volume_name)
+print(remote_snapshots(host_name, user_name, volume_name))
 
 # Main program
 
