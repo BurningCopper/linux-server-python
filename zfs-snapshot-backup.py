@@ -63,7 +63,7 @@ old_snapshot_list = clean_output(old_snapshot_byte)
 old_snapshot_list = grep_lines(old_snapshot_list, "daily")
 old_snapshot = old_snapshot_list[-1]
 
-if old_snapshot < latest_snapshot:
+if old_snapshot > latest_snapshot:
     print("Latest snapshot is newer!")
 else:
     print("Snapshot is not larger")
