@@ -63,5 +63,16 @@ old_snapshot_list = clean_output(old_snapshot_byte)
 old_snapshot_list = grep_lines(old_snapshot_list, "daily")
 old_snapshot = old_snapshot_list[-1]
 
-print('remote snapshot = ' + latest_snapshot)
-print('local snapshot = ' + old_snapshot)
+if old_snapshot < latest_snapshot:
+    print("Latest snapshot is newer!")
+else:
+    print("Snapshot is not larger")
+
+# email_body_byte = subprocess.run(["ssh", host_name,
+#                                   "zfs", "send",
+#                                   "-i", old_snapshot, latest_snapshot, "|",
+#                                   "zfs", "recv", volume_name],
+#                                   stdout=subprocess.PIPE)
+# email_body_list = clean_output(email_body_byte)
+
+# for item in 
