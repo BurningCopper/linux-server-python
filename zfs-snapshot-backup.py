@@ -49,7 +49,7 @@ def local_snapshots(v):
     b = subprocess.run(["zfs", "list", 
                         "-t", "snapshot",
                         "-o", "name", v],
-                        stdout=subprocess,PIPE)
+                        stdout=subprocess.PIPE)
     return b
 
 # Main program
