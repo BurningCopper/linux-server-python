@@ -44,12 +44,24 @@ def remote_snapshots(h, u, v):
                     stdout=subprocess.PIPE)
     return b
 
+# Take a local zfs volume name (v), and output a byte formatted list (b) of volume snapshots
+def local_snapshots(v):
+    b = subprocess.run(["zfs", "list", 
+                        "-t", "snapshot",
+                        "-o", "name", v],
+                        stdout=subprocess,PIPE)
+    return b
 
 # Main program
-last_snapshot_byte = remote_snapshots(host_name, user_name, volume_name)
-last_snapshot_list = clean_output(last_snapshot_byte)
-last_snapshot_list = grep_lines(last_snapshot_list, "daily")
-last_snapshot = last_snapshot_list[-1]
+latest_snapshot_byte = remote_snapshots(host_name, user_name, volume_name)
+latest_snapshot_list = clean_output(latest_snapshot_byte)
+latest_snapshot_list = grep_lines(latest_snapshot_list, "daily")
+latest_snapshot = latest_snapshot_list[-1]
 
-print(last_snapshot)
+old_snapshot_byte = local_snapshots(volume_name)
+old_snapshot_list = clean_output(old_snapshot_byte)
+old_snapshot_list = grep_lines(old_snapshot_list, "daily")
+old_snapshot = old_snapshot_list[-1]
 
+print('remote snapshot = ' + latest_snapshot)
+print('local snapshot = ' + old_snapshot)
