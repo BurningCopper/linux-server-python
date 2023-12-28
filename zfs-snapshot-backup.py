@@ -13,7 +13,7 @@ user_name = "deretzlaff-ou"
 email_server = 'palazzo.psychiatry.wisc.edu'
 email_from = "deretzlaff@wisc.edu"
 email_to = "deretzlaff@wisc.edu"
-email_subject = "Subject: " + volume_name + " snapshot backup results for " + datetime.datetime.strftime("%m-%d-%Y") + "\n"
+email_subject = "Subject: " + volume_name + " snapshot backup results for " + datetime.datetime.now().strftime("%m-%d-%Y") + "\n"
 
 # Take the input string (s), convert it to a list (l), and outputs a list (l) that containes only the lines that contain the search term (g)
 def grep_lines(s, g):
