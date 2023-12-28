@@ -16,4 +16,5 @@ Steps to perform a check:
 7. Email a report to me
 
 Setup:
-1. Have zfs permissions set for the user name on both
+1. Have zfs permissions set for the user name on both systems
+2. setup passwordless ssh login for the local user on the remote system

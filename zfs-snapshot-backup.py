@@ -15,13 +15,12 @@ email_from = "deretzlaff@wisc.edu"
 email_to = "deretzlaff@wisc.edu"
 email_subject = "Subject: " + volume_name + " snapshot backup results for " + datetime.datetime.now().strftime("%m-%d-%Y") + "\n"
 
-# Take the input string (s), convert it to a list (l), and outputs a list (l) that containes only the lines that contain the search term (g)
+# Take the input list (s), convert it to a list (l), and outputs a list (l) that containes only the lines that contain the search term (g)
 def grep_lines(s, g):
-    n = s.split("\n")
     l = []
-    for i in n:
+    for i in s:
         if i.find(g) != -1:
-            l.appent(i)
+            l.append(i)
     return l
 
 # Take the byte type output of subprocess.run (b) and output a list of clean output (l)
@@ -45,9 +44,11 @@ def remote_snapshots(h, u, v):
                     stdout=subprocess.PIPE)
     return b
 
-last_snapshot_byte = remote_snapshots(host_name, user_name, volume_name)
-last_snapshot_list = clean_output(last_snapshot_byte)
-print(last_snapshot_list)
 
 # Main program
+last_snapshot_byte = remote_snapshots(host_name, user_name, volume_name)
+last_snapshot_list = clean_output(last_snapshot_byte)
+last_snapshot_list = grep_lines(last_snapshot_list, "daily")
+
+print(last_snapshot_list)
 
