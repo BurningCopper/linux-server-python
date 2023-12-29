@@ -38,9 +38,9 @@ def send_email(s, f, t, m):
 
 # Take a hostname (h), a username (u), a zfs volume name (v), and output a byte formatted list (b) of volume snapshots
 def remote_snapshots(h, u, v):
-    b = subprocess.run(["ssh", h, "zfs", "list", 
+    b = subprocess.run(["ssh", u + "@" + h, "zfs", "list", 
                     "-t", "snapshot", 
-                    "-o", "name", volume_name],
+                    "-o", "name", v],
                     stdout=subprocess.PIPE)
     return b
 
