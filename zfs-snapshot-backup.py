@@ -74,7 +74,6 @@ if old_snapshot < latest_snapshot:
                                     shell=True,
                                     stdout=subprocess.PIPE)
     email_body_list = clean_output(email_body_byte)
-    print(email_body)
     email_body = ""
     for i in email_body_list:
         email_body = i + "\n"
