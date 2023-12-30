@@ -67,7 +67,7 @@ old_snapshot = old_snapshot_list[-1]
 
 if old_snapshot < latest_snapshot:
     print(old_snapshot + " is smaaller")
-    subprocess.run(["ssh", host_name,
+    subprocess.run(["echo", host_name,
                     "zfs", "send",
                     "-i", old_snapshot, latest_snapshot, "|",
                     "zfs", "recv", volume_name],
