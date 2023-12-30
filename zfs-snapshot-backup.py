@@ -71,6 +71,7 @@ if old_snapshot < latest_snapshot:
                                     "zfs", "send",
                                     "-i", old_snapshot, latest_snapshot, "|",
                                     "zfs", "recv", volume_name],
+                                    shell=True,
                                     stdout=subprocess.PIPE)
     email_body_list = clean_output(email_body_byte)
     print(email_body)
