@@ -66,18 +66,19 @@ old_snapshot = old_snapshot_list[-1]
 # print("ssh " + host_name + "zfs send -i" + old_snapshot + latest_snapshot + "zfs recv" + volume_name)
 
 if old_snapshot < latest_snapshot:
-    print(old_snapshot + "is smaaller")
+    print(old_snapshot + " is smaaller")
     subprocess.run(["ssh", host_name,
-                                    "zfs", "send",
-                                    "-i", old_snapshot, latest_snapshot, "|",
-                                    "zfs", "recv", volume_name],
-                                    stdout=subprocess.PIPE)
-    email_body_list = clean_output(email_body_byte)
-    print(email_body)
-    email_body = ""
-    for i in email_body_list:
-        email_body = i + "\n"
-    print(email_body)
+                    "zfs", "send",
+                    "-i", old_snapshot, latest_snapshot, "|",
+                    "zfs", "recv", volume_name],
+                    stdout=subprocess.PIPE)
+    print(old_snapshot + " is smaller")
+    # email_body_list = clean_output(email_body_byte)
+    # print(email_body)
+    # email_body = ""
+    # for i in email_body_list:
+    #     email_body = i + "\n"
+    # print(email_body)
 else:
     email_body = "No backup performed because the latest snapshot on the target volume was not newer than the backup snapshot."
 
