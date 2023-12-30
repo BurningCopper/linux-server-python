@@ -70,7 +70,8 @@ if old_snapshot < latest_snapshot:
     email_body_byte = subprocess.run(["ssh", host_name,
                                     "zfs", "send",
                                     "-i", old_snapshot, latest_snapshot, "|",
-                                    "zfs", "recv", volume_name])
+                                    "zfs", "recv", volume_name],
+                                    subprocess.PIPE)
     email_body_list = clean_output(email_body_byte)
     print(email_body)
     email_body = ""
