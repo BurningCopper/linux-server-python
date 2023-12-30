@@ -66,11 +66,11 @@ old_snapshot = old_snapshot_list[-1]
 # print("ssh " + host_name + "zfs send -i" + old_snapshot + latest_snapshot + "zfs recv" + volume_name)
 
 if old_snapshot < latest_snapshot:
-    print(old_snapshot + " is smaaller")
-    email_body_byte = subprocess.run(["ssh", host_name,
-                                        "zfs", "send",
-                                        "-i", old_snapshot, latest_snapshot, "|",
-                                        "zfs", "recv", volume_name])
+    print(old_snapshot + " is smaller")
+    subprocess.run(["ssh", host_name,
+                    "zfs", "send",
+                    "-i", old_snapshot, latest_snapshot, "|",
+                    "zfs", "recv", volume_name])
     email_body_list = clean_output(email_body_byte)
     print(email_body)
     email_body = ""
