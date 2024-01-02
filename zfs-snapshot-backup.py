@@ -17,10 +17,10 @@ email_subject = "Subject: " + volume_name + " snapshot backup results for " + da
 
 # Take the input list (s), convert it to a list (l), and outputs a list (l) that containes only the lines that contain the search term (g)
 def grep_lines(s, g):
-    g.lower()
     l = []
     for i in s:
-        if i.find(g) != -1:
+        ci = i.lower()
+        if ci.find(g) != -1:
             l.append(i)
     return l
 
