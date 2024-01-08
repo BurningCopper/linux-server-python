@@ -76,6 +76,6 @@ if old_snapshot < latest_snapshot:
     #     email_body = i + "\n"
     # print(email_body)
 else:
-    email_body = "No backup performed because the latest snapshot on the target volume was not newer than the backup snapshot."
+    email_body = "No backup performed because the latest snapshot on the target volume was not newer than the local backup snapshot."
 
 print(email_body)
