@@ -65,7 +65,7 @@ old_snapshot_list = grep_lines(old_snapshot_list, "daily")
 old_snapshot = old_snapshot_list[-1]
 
 if old_snapshot < latest_snapshot:
-    command = "ssh " + host_name + " zfs send -iv " + old_snapshot + " " + latest_snapshot + " | zfs recv " + volume_name
+    command = "ssh " + host_name + " zfs send -v -i " + old_snapshot + " " + latest_snapshot + " | zfs recv " + volume_name
     email_body_byte = subprocess.run([command],
                                     shell=True,
                                     stdout=subprocess.PIPE)
@@ -78,4 +78,4 @@ if old_snapshot < latest_snapshot:
 else:
     email_body = "No backup performed because the latest snapshot on the target volume was not newer than the local backup snapshot."
 
-print(email_body)
+# print(email_body)
