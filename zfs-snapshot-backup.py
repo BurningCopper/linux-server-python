@@ -65,7 +65,7 @@ old_snapshot_list = grep_lines(old_snapshot_list, "daily")
 old_snapshot = old_snapshot_list[-1]
 
 if old_snapshot < latest_snapshot:
-    command = "ssh " + user_name + "@" + host_name + " zfs send -i " + old_snapshot + " " + latest_snapshot + " | zfs recv " + volume_name
+    command = "ssh " + host_name + " zfs send -i " + old_snapshot + " " + latest_snapshot + " | zfs recv " + volume_name
     email_body_byte = subprocess.run([command],
                                     shell=True,
                                     stdout=subprocess.PIPE)
