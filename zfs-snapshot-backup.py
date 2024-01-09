@@ -15,7 +15,7 @@ email_from = "deretzlaff@wisc.edu"
 email_to = "deretzlaff@wisc.edu"
 email_subject = "Subject: " + volume_name + " snapshot backup results for " + datetime.datetime.now().strftime("%m-%d-%Y") + "\n"
 
-# Take the input list (s), convert it to a list (l), and outputs a list (l) that containes only the lines that contain the search term (g)
+# Take the input list (s), convert it to a list (l), and outputs a list (l) that contains only the lines that contain the search term (g)
 def grep_lines(s, g):
     l = []
     for i in s:
@@ -68,8 +68,10 @@ if old_snapshot < latest_snapshot:
     command = "ssh " + host_name + " zfs send -i " + old_snapshot + " " + latest_snapshot + " | pv | zfs recv " + volume_name
     email_body_byte = subprocess.run([command],
                                     shell=True,
-                                    stdout=subprocess.PIPE)
+                                    stdout=subprocess.PIPE,
+                                    stderr=subprocess.)
     email_body_list = clean_output(email_body_byte)
+    print(email_body_byte)
     print(email_body_list)
     # email_body = ""
     # for i in email_body_list:
