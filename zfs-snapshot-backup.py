@@ -68,9 +68,10 @@ if old_snapshot < latest_snapshot:
     command = "ssh " + host_name + " zfs send -i " + old_snapshot + " " + latest_snapshot + " | pv | zfs recv " + volume_name
     email_body_byte = subprocess.run([command],
                                     shell=True,
-                                    stdout=subprocess.PIPE)
+                                    # stdout=subprocess.PIPE,
+                                    stdout=subprocess.STDOUT)
     email_body_list = clean_output(email_body_byte)
-    print(email_body_byte)
+    # print(email_body_byte)
     print(email_body_list)
     # email_body = ""
     # for i in email_body_list:
