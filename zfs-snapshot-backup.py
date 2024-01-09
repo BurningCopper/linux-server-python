@@ -69,6 +69,7 @@ if old_snapshot < latest_snapshot:
     email_body_byte = subprocess.run([command],
                                     shell=True,
                                     stderr=subprocess.PIPE)
+    email_body_byte = email_body_byte.stdout
     email_body_list = clean_output(email_body_byte)
     # print(email_body_byte)
     print(email_body_list)
