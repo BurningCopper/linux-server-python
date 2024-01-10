@@ -70,9 +70,10 @@ if old_snapshot < latest_snapshot:
                                     shell=True,
                                     stderr=subprocess.PIPE)
     email_body_byte = email_body_byte.stderr
-    email_body_list = clean_output(email_body_byte)
+    email_body_string = email_body_byte.decode('utf-8')
+    email_body_string = email_body_string.rstrip('\n')
     # print(email_body_byte)
-    print(email_body_list)
+    print(email_body_string)
     # email_body = ""
     # for i in email_body_list:
     #     email_body = i + "\n"
