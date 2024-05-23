@@ -6,7 +6,7 @@ import datetime
 
 input_folder = "/home/deretzlaff-ou@ad.wisc.edu"
 drive_mount = "run"
-email_server = 'palazzo.psychiatry.wisc.edu'
+email_server = 'smtp.wiscmail.wisc.edu'
 email_from = "deretzlaff@wisc.edu"
 email_to = "deretzlaff@wisc.edu"
 email_subject = "Subject: Vol5 Storage Assessment for " + datetime.datetime.now().strftime("%m-%d-%Y") + " \n"
