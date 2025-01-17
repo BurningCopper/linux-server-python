@@ -46,14 +46,24 @@ def grep_lines(s, g):
 # Take the input mount name (drive_in) and output the space used in bytes
 def df_value(drive_in): #apparently this is getting zero hits
     df_subprocess = subprocess.run(["/usr/bin/df", "--output=used,target"], stdout=subprocess.PIPE)
-#    df_subprocess = subprocess.run(["/usr/bin/df", "--portability"], stdout=subprocess.PIPE)
     df_subprocess = df_subprocess.stdout
     size_out = df_subprocess.decode('utf-8')
     str_out = grep_lines(size_out, drive_in)
-    str_out = size_out.rstrip("\n")
-    str_out = str_out.split('[ /]')
-#    str_out = size_out[0]
-#    print(str_out)
+    str_out = str_out.replace(drive_in, "")
+    str_out = str_out.replace(" ", "")
+    str_out = str_out.rstrip("\n")
+    return str_out
+
+
+# Take the input mount name (drive_in) and output the space used in human readable output
+def df_value_human(drive_in):
+    df_subprocess = subprocess.run(["/usr/bin/df", "--human-readable", "--output=used,target"], stdout=subprocess.PIPE)
+    df_subprocess = df_subprocess.stdout
+    size_out = df_subprocess.decode('utf-8')
+    str_out = grep_lines(size_out, drive_in)
+    str_out = str_out.replace(drive_in, "")
+    str_out = str_out.replace(" ", "")
+    str_out = str_out.rstrip("\n")
     return str_out
 
 
@@ -61,19 +71,19 @@ def df_value(drive_in): #apparently this is getting zero hits
 def quarterly_price(storage_used):
     storage_used_float = float(storage_used)
     price_float = float(price_per_t)
-    cost = storage_used_float * ( price_float / (1024 ** 4))
+#    cost = storage_used_float * ( price_float / (1024 ** 4))
+    cost = (storage_used_float / (1000 ** 3)) * price_float * .25
     return cost
 
 # Main program
 storage_report = "Please find below the " + email_subject + "\n"
 
-# for i in input_volumes:
-#     storage_report = storage_report + email_spacer + "Storage Report for " + i + ":\n"
-#     storage_report = storage_report + disk_usage(i) + " Used * $" + str(price_per_t) + "/TB/Year * .25 = $" + str(round(quarterly_price(df_value(i)),2)) + "\n\n" 
-
-
 for i in input_volumes:
-    print(df_value(i))
+    storage_report = storage_report + email_spacer + "Storage Report for " + i + ":\n"
+    storage_report = storage_report + df_value_human(i) + " Used * $" + str(price_per_t) + "/TB/Year * .25 = $" + str(round(quarterly_price(df_value(i)),2)) + "\n\n"
+
+print(storage_report)
+
 
 
 '''
