@@ -4,8 +4,8 @@ import smtplib
 import subprocess
 import datetime
 
-#input_volumes = ["/Volumes/Vol2", "/Volumes/Vol3", "/Volumes/Vol5", "/Volumes/Vol6", "/Volumes/Vol7"]
-input_volumes = ["/media/deretzlaff-ou@ad.wisc.edu/disk", "/"]
+input_volumes = ["/Volumes/Vol2", "/Volumes/Vol3", "/Volumes/Vol5", "/Volumes/Vol6", "/Volumes/Vol7"]
+#input_volumes = ["/media/deretzlaff-ou@ad.wisc.edu/disk", "/"]
 email_server = "palazzo.psychiatry.wisc.edu"
 price_per_t = 120
 email_from = "deretzlaff@wisc.edu"
@@ -46,13 +46,14 @@ def grep_lines(s, g):
 # Take the input mount name (drive_in) and output the space used in bytes
 def df_value(drive_in): #apparently this is getting zero hits
     df_subprocess = subprocess.run(["/usr/bin/df", "--output=used,target"], stdout=subprocess.PIPE)
+#    df_subprocess = subprocess.run(["/usr/bin/df", "--portability"], stdout=subprocess.PIPE)
     df_subprocess = df_subprocess.stdout
     size_out = df_subprocess.decode('utf-8')
     str_out = grep_lines(size_out, drive_in)
     str_out = size_out.rstrip("\n")
-    str_out = str_out.split("\t")
-    str_out = size_out[0]
-    print(str_out)
+    str_out = str_out.split('[ /]')
+#    str_out = size_out[0]
+#    print(str_out)
     return str_out
 
 
