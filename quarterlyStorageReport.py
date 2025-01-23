@@ -14,26 +14,6 @@ email_subject = "Q1 " + datetime.datetime.now().strftime("%Y") + " Storage repor
 email_body_formatting = ["Content-type:text/html \n<html><font face=\"Courier New, Courier, monospace\">", "</font></html>"]
 email_spacer = "====================\n"
 
-# Take the input directory (dir_in) and output the total disk usage for the directory as a string (dir_out)
-def disk_usage(dir_in):
-    du_subprocess = subprocess.run(["/usr/bin/du", "--summarize", "--human-readable", dir_in], stdout=subprocess.PIPE)
-    du_subprocess = du_subprocess.stdout
-    dir_out = du_subprocess.decode('utf-8')
-    dir_out = dir_out.rstrip("\n")
-    dir_out = dir_out.split("\t")
-    str_out = dir_out[0]
-    return str_out
-
-# Take the input directory (dir_in) and output the disk usage in plain format without the folder name
-def disk_usage_plain(dir_in):
-    du_subprocess = subprocess.run(["/usr/bin/du", "--summarize", dir_in], stdout=subprocess.PIPE)
-    du_subprocess = du_subprocess.stdout
-    dir_out = du_subprocess.decode('utf-8')
-    dir_out = dir_out.rstrip("\n")
-    dir_out = dir_out.split("\t")
-    str_out = dir_out[0]
-    return str_out
-
 # Take the input string (s), convert it to a list (l), and outputs a string (s) that contains only the lines that contain the grep search term (g)
 def grep_lines(s, g):
     l = s.split("\n")
