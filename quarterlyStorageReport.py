@@ -20,7 +20,7 @@ def print_quarter():
         q = "Q4"
     return(q)
 
-input_volumes = ["/Volumes/Vol2", "/Volumes/Vol3", "/Volumes/Vol5", "/Volumes/Vol6", "/Volumes/Vol7"]
+input_volumes = [["Cisler Lab", "/Volumes/Vol2"], ["Koenigs Lab", "/Volumes/Vol3"], ["Kalin Lab", "/Volumes/Vol5"], ["Herringa Lab", "/Volumes/Vol6"], ["Plante Lab", "/Volumes/Vol7"]]
 email_server = "palazzo.psychiatry.wisc.edu"
 price_per_t = 120
 email_from = "deretzlaff@wisc.edu"
@@ -73,10 +73,10 @@ def quarterly_price(storage_used):
 storage_report = "Please find below the " + email_subject + "\n"
 
 for i in input_volumes:
-    storage_report = storage_report + email_spacer + "Storage Report for " + i + ":\n"
-    storage_report = storage_report + df_value_human(i) + " Used * $" + str(price_per_t) + "/TB/Year * .25 = $" + str(round(quarterly_price(df_value(i)),2)) + "\n\n"
+    storage_report = storage_report + email_spacer + "Storage Report for " + i[1] + ":\n"
+    storage_report = storage_report + df_value_human(i) + " Used * $" + str(price_per_t) + "/TB/Year * .25 = $" + str(round(quarterly_price(df_value(i[1])),2)) + "\n\n"
 
-# print(storage_report)
+print(storage_report)
 
 
 
