@@ -4,17 +4,7 @@ import smtplib
 import subprocess
 import datetime
 
-input_volumes = ["/Volumes/Vol2", "/Volumes/Vol3", "/Volumes/Vol5", "/Volumes/Vol6", "/Volumes/Vol7"]
-#input_volumes = ["/media/deretzlaff-ou@ad.wisc.edu/disk", "/"]
-email_server = "palazzo.psychiatry.wisc.edu"
-price_per_t = 120
-email_from = "deretzlaff@wisc.edu"
-email_to = "deretzlaff@wisc.edu" # weitzman2@wisc.edu, iakere@wisc.edu, wempner@wisc.edu, kkern3@wisc.edu, rashton@wisc.edu"
-email_subject = print_quarter() + " " + datetime.datetime.now().strftime("%Y") + " Storage report for MRI-NAS \n"
-email_body_formatting = ["Content-type:text/html \n<html><font face=\"Courier New, Courier, monospace\">", "</font></html>"]
-email_spacer = "====================\n"
-
-#
+# Check the current month and decide which quarter should be used for the report
 def print_quarter():
     q1 = {3, 4, 5}
     q2 = {6, 7, 8}
@@ -29,6 +19,15 @@ def print_quarter():
     if datetime.datetime.now().month in q4:
         q = "Q4"
     return(q)
+
+input_volumes = ["/Volumes/Vol2", "/Volumes/Vol3", "/Volumes/Vol5", "/Volumes/Vol6", "/Volumes/Vol7"]
+email_server = "palazzo.psychiatry.wisc.edu"
+price_per_t = 120
+email_from = "deretzlaff@wisc.edu"
+email_to = "deretzlaff@wisc.edu" # weitzman2@wisc.edu, iakere@wisc.edu, wempner@wisc.edu, kkern3@wisc.edu, rashton@wisc.edu"
+email_subject = print_quarter() + " " + datetime.datetime.now().strftime("%Y") + " Storage report for MRI-NAS \n"
+email_body_formatting = ["Content-type:text/html \n<html><font face=\"Courier New, Courier, monospace\">", "</font></html>"]
+email_spacer = "====================\n"
 
 # Take the input string (s), convert it to a list (l), and outputs a string (s) that contains only the lines that contain the grep search term (g)
 def grep_lines(s, g):
@@ -67,19 +66,17 @@ def df_value_human(drive_in):
 def quarterly_price(storage_used):
     storage_used_float = float(storage_used)
     price_float = float(price_per_t)
-#    cost = storage_used_float * ( price_float / (1024 ** 4))
     cost = (storage_used_float / (1000 ** 3)) * price_float * .25
     return cost
 
 # Main program
 storage_report = "Please find below the " + email_subject + "\n"
 
-# for i in input_volumes:
-#     storage_report = storage_report + email_spacer + "Storage Report for " + i + ":\n"
-#     storage_report = storage_report + df_value_human(i) + " Used * $" + str(price_per_t) + "/TB/Year * .25 = $" + str(round(quarterly_price(df_value(i)),2)) + "\n\n"
+for i in input_volumes:
+    storage_report = storage_report + email_spacer + "Storage Report for " + i + ":\n"
+    storage_report = storage_report + df_value_human(i) + " Used * $" + str(price_per_t) + "/TB/Year * .25 = $" + str(round(quarterly_price(df_value(i)),2)) + "\n\n"
 
 # print(storage_report)
-print(print_quarter())
 
 
 
