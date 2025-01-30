@@ -73,8 +73,8 @@ def quarterly_price(storage_used):
 storage_report = "Please find below the " + email_subject + "\n"
 
 for i in input_volumes:
-    storage_report = storage_report + email_spacer + "Storage Report for " + i[1] + ":\n"
-    storage_report = storage_report + df_value_human(i) + " Used * $" + str(price_per_t) + "/TB/Year * .25 = $" + str(round(quarterly_price(df_value(i[1])),2)) + "\n\n"
+    storage_report = storage_report + email_spacer + "Storage Report for the " + i[0] + " (" + i[1] + "):\n"
+    storage_report = storage_report + df_value_human(i[1]) + " Used * $" + str(price_per_t) + "/TB/Year * .25 = $" + str(round(quarterly_price(df_value(i[1])),2)) + "\n\n"
 
 print(storage_report)
 
