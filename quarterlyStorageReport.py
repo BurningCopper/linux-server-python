@@ -29,6 +29,16 @@ email_subject = print_quarter() + " " + datetime.datetime.now().strftime("%Y") +
 email_body_formatting = ["Content-type:text/html \n<html><font face=\"Courier New, Courier, monospace\">", "</font></html>"]
 email_spacer = "====================\n"
 
+# Take an input string (s), and replace \n line breaks with html line breaks </pre>
+def html_formatting(s):
+    l = s.split('\n')
+    h = "<p>"
+    for i in l:
+        i = i + '\n<\pre>'
+        h = h + i + '\n'
+    h = h + "</p>\n"
+    return h
+
 # Take the input string (s), convert it to a list (l), and outputs a string (s) that contains only the lines that contain the grep search term (g)
 def grep_lines(s, g):
     l = s.split("\n")
@@ -77,7 +87,7 @@ for i in input_volumes:
     storage_report = storage_report + df_value_human(i[1]) + " Used * $" + str(price_per_t) + "/TB/Year * .25 = $" + str(round(quarterly_price(df_value(i[1])),2)) + "\n\n"
 
 print(storage_report)
-
+print(html_formatting(storage_report))
 
 
 '''
