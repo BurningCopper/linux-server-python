@@ -21,12 +21,12 @@ def print_quarter():
     return(q)
 
 input_volumes = [["Cisler Lab", "/Volumes/Vol2"], ["Koenigs Lab", "/Volumes/Vol3"], ["Kalin Lab", "/Volumes/Vol5"], ["Herringa Lab", "/Volumes/Vol6"], ["Plante Lab", "/Volumes/Vol7"]]
-email_server = "palazzo.psychiatry.wisc.edu"
+email_server = "smtp.wiscmail.wisc.edu"
 price_per_t = 120
 email_from = "deretzlaff@wisc.edu"
 email_to = "deretzlaff@wisc.edu" # weitzman2@wisc.edu, iakere@wisc.edu, wempner@wisc.edu, kkern3@wisc.edu, rashton@wisc.edu"
 email_subject = print_quarter() + " " + datetime.datetime.now().strftime("%Y") + " Storage report for MRI-NAS \n"
-email_body_formatting = ["Content-type:text/html \n<html><font face=\"Courier New, Courier, monospace\">", "</font></html>"]
+email_body_formatting = ["<Content-type:text/html> \n<html><font face=\"Courier New, Courier, monospace\">", "</font></html>"]
 email_spacer = "====================\n"
 
 # Take an input string (s), and replace \n line breaks with html line breaks </pre>
@@ -34,7 +34,7 @@ def html_formatting(s):
     l = s.split('\n')
     h = "<p>"
     for i in l:
-        i = i + '\n<\pre>'
+        i = '<pre>' + i + '\n</pre>'
         h = h + i + '\n'
     h = h + "</p>\n"
     return h
@@ -86,15 +86,9 @@ for i in input_volumes:
     storage_report = storage_report + email_spacer + "Storage Report for the " + i[0] + " (" + i[1] + "):\n"
     storage_report = storage_report + df_value_human(i[1]) + " Used * $" + str(price_per_t) + "/TB/Year * .25 = $" + str(round(quarterly_price(df_value(i[1])),2)) + "\n\n"
 
-print(storage_report)
-print(html_formatting(storage_report))
+#email_message = "Subject: " + email_subject + email_body_formatting[0] + html_formatting(storage_report) + email_body_formatting[1]
+email_message = "Subject: " + email_subject + storage_report
 
+server = smtplib.SMTP(email_server)
+server.sendmail(email_from, email_to, email_message)
 
-'''
-Needed for report:
-- Get the storage usage of each of the important volumes
-- Calculate the cost of the storage per year
-- calculate the storage cost per quarter 
-- format output for email
-- send email to important people
-'''
