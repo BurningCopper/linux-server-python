@@ -26,7 +26,7 @@ price_per_t = 120
 email_from = "deretzlaff@wisc.edu"
 email_to = "deretzlaff@wisc.edu" # weitzman2@wisc.edu, iakere@wisc.edu, wempner@wisc.edu, kkern3@wisc.edu, rashton@wisc.edu"
 email_subject = print_quarter() + " " + datetime.datetime.now().strftime("%Y") + " Storage report for MRI-NAS \n"
-email_body_formatting = ["<Content-type:text/html> \n<html><font face=\"Courier New, Courier, monospace\">", "</font></html>"]
+# email_body_formatting = ["<Content-type:text/html> \n<html><font face=\"Courier New, Courier, monospace\">", "</font></html>"]
 email_spacer = "====================\n"
 
 # Take the input string (s), convert it to a list (l), and outputs a string (s) that contains only the lines that contain the grep search term (g)
