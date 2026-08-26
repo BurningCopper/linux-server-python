@@ -38,18 +38,20 @@ rsync_report = ""
 
 rsync_report = rsync_report + rsync_backup(input_folder, output_folder)
 
+print(rsync_report)
+
 #start here
 
-drive_usage_totals = "<pre>" + grep_lines(df_output(), "Size") 
+#drive_usage_totals = "<pre>" + grep_lines(df_output(), "Size") 
 
-for i in drive_mount:
-    drive_usage_totals = drive_usage_totals + grep_lines(df_output(), i) 
+#for i in drive_mount:
+#    drive_usage_totals = drive_usage_totals + grep_lines(df_output(), i) 
 
-drive_usage_totals = drive_usage_totals + "</pre>" 
+#drive_usage_totals = drive_usage_totals + "</pre>" 
 
-storage_report = format_html_table(storage_report) + drive_usage_totals
+#storage_report = format_html_table(storage_report) + drive_usage_totals
 
-email_message = email_subject + email_body_formatting[0] + storage_report + email_body_formatting[1]
+#email_message = email_subject + email_body_formatting[0] + storage_report + email_body_formatting[1]
 
-server = smtplib.SMTP(email_server)
-server.sendmail(email_from, email_to, email_message)
+#server = smtplib.SMTP(email_server)
+#server.sendmail(email_from, email_to, email_message)
