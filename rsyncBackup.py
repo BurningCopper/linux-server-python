@@ -4,8 +4,8 @@ import smtplib
 import subprocess
 import datetime
 
-input_folder = ["/data/user-nfs-all/"]
-output_folder = ["/Volumes/mri-users/"]
+input_folder = "/data/user-nfs-all/"
+output_folder = "/Volumes/mri-users/"
 email_server = 'smtp.wiscmail.wisc.edu'
 email_from = "deretzlaff@wisc.edu"
 email_to = ["deretzlaff@wisc.edu"] #, "wmanderson4@wisc.edu"]
