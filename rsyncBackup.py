@@ -5,7 +5,7 @@ import subprocess
 import datetime
 
 #input_folder = "/data/user-nfs-all/"
-input_folder = "/Volumes/user-nfs-all/"
+input_folder = "/Volumes/user-nfs-all/deretzlaff@ad.wisc.edu"
 output_folder = "/Volumes/mri-users/"
 email_server = 'smtp.wiscmail.wisc.edu'
 email_from = "deretzlaff@wisc.edu"
