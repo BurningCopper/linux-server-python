@@ -13,7 +13,7 @@ email_subject = "Subject: Psychiatry Home Folder Backup status for " + datetime.
 email_body_formatting = ["Content-type:text/html \n<html><font face=\"Courier New, Courier, monospace\">", "</font></html>"]
 
 # Take the input directory (dir_in) and output the total disk usage for the directory as a string (dir_out)
-def rsync_backup(dir_in):
+def rsync_backup(dir_in, dir_out):
         rsync_subprocess = subprocess.run(["/usr/bin/rsync", "--recursive", "--archive", "--progress", dir_in, dir_out], stdout=subprocess.PIPE)
         rsync_subprocess = rsync_subprocess.stdout
         rsync_output = rsync_subprocess.decode('utf-8')
@@ -35,7 +35,7 @@ def format_html_table(s):
 # Begin main program
 rsync_report = ""
 
-rsync_report = rsync_report + rsync_backup(input_folder)
+rsync_report = rsync_report + rsync_backup(input_folder, output_folder)
 
 #start here
 
