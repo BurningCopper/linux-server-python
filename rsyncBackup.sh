@@ -4,7 +4,9 @@
 
 IN_FOLDER=$1
 OUT_FOLDER=$2
+REPORT_LOCATION=/tmp/backup_report.gz
 RSYNC_OPTIONS="--recursive --progress --links --times --group --owner --dry-run"
 
-(time rsync $RSYNC_OPTIONS $IN_FOLDER $OUT_FOLDER) 2>&1 | tee >(gzip > /tmp/backup_report.gz)
+#(time rsync $RSYNC_OPTIONS $IN_FOLDER $OUT_FOLDER) 2>&1 | tee >(gzip > $REPORT_LOCATION)
 
+echo "test email body" | mutt -s "Backup Report for $IN_FOLDER on $(date "+%A %m-%d-%Y")" -a /tmp/backup_report.gz -- deretzlaff@wisc.edu
