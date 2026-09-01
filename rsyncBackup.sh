@@ -2,10 +2,10 @@
 
 # User rsync to perform a backup from $IN_FOLDER to $OUT_FOLDER
 
-IN_FOLDER=/Volumes/user-nfs-all/
+IN_FOLDER=/Volumes/user-nfs-all/deretzlaff@ad.wisc.edu
 OUT_FOLDER=/Volumes/mri-users/
 REPORT_LOCATION=/tmp/backup_report.gz
-RSYNC_OPTIONS="--recursive --progress --links --times --group --owner --dry-run"
+RSYNC_OPTIONS="--recursive --stats --links --times --group --owner --dry-run"
 
 (time rsync $RSYNC_OPTIONS $IN_FOLDER $OUT_FOLDER) 2>&1 | tee >(gzip > $REPORT_LOCATION)
 
