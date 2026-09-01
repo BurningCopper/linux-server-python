@@ -2,8 +2,8 @@
 
 # User rsync to perform a backup from $IN_FOLDER to $OUT_FOLDER
 
-IN_FOLDER=/Volumes/user-nfs-all/
-OUT_FOLDER=/Volumes/mri-users/
+IN_FOLDER=$1
+OUT_FOLDER=$2
 REPORT_LOCATION=/tmp/backup_report.txt
 RSYNC_OPTIONS="--recursive --stats --links --times --owner --group"
 
