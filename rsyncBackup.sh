@@ -2,11 +2,11 @@
 
 # User rsync to perform a backup from $IN_FOLDER to $OUT_FOLDER
 
-IN_FOLDER=/Volumes/user-nfs-all/deretzlaff@ad.wisc.edu
+IN_FOLDER=/Volumes/user-nfs-all/
 OUT_FOLDER=/Volumes/mri-users/
-REPORT_LOCATION=/tmp/backup_report.gz
-RSYNC_OPTIONS="--recursive --stats --links --times --owner --dry-run"
+REPORT_LOCATION=/tmp/backup_report.txt
+RSYNC_OPTIONS="--recursive --stats --links --times --owner --group"
 
-(time rsync $RSYNC_OPTIONS $IN_FOLDER $OUT_FOLDER) 2>&1 | tee >(gzip > $REPORT_LOCATION)
+(time rsync $RSYNC_OPTIONS $IN_FOLDER $OUT_FOLDER) 2>&1 | tee $REPORT_LOCATION
 
 echo "Compressed report can be read directly in VIM" | mutt -s "Backup Report for $IN_FOLDER on $(date "+%A %m-%d-%Y")" -a $REPORT_LOCATION -- deretzlaff@wisc.edu
